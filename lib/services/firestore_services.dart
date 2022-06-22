@@ -18,7 +18,7 @@ static final history = FirebaseFirestore.instance.collection(FirestoreConstants.
   .orderBy(FirestoreConstants.dateFinished, descending: true)
   .withConverter<FeedModel>(
      fromFirestore: (snapshot, _) => FeedModel.fromMap(snapshot.data()!,snapshot.id),
-     toFirestore: (user, _) => user.toMap(),
+     toFirestore: (model, _) => model.toMap(),
    );
 
     

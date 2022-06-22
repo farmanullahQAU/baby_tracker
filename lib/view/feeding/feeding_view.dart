@@ -84,6 +84,11 @@ class FeedingView extends GetView<FeedingViewController> {
                                child: SingleChildScrollView(
                                  child: Column(
                                   children: [
+
+         
+
+
+                                  
                                    RichText(
                                                            text: buildLefRightText("L","eft"),
                                                          ),
@@ -94,6 +99,7 @@ class FeedingView extends GetView<FeedingViewController> {
                                                          
                                                    
                                   ],
+
                                                            ),
                                ),
                              ),
@@ -104,7 +110,9 @@ class FeedingView extends GetView<FeedingViewController> {
                                height: Get.height*0.3,
                                child: SingleChildScrollView(
                                  child: Column(
-                                  children: [
+                                  children: [Text(controller.leftBreastTimerDuration2.value.inSeconds.toString()),
+
+
                                    RichText(
                                                            text: buildLefRightText("R","ight"),
                                                          ),
@@ -161,8 +169,10 @@ class FeedingView extends GetView<FeedingViewController> {
                       (){
                       
                       
-                       controller.finishFeeding();
-                      
+                      //  controller.finishFeeding();
+
+                      controller.leftBreastTimerDuration2.value=Duration();
+                      controller.stopIsolate();
                       
                       
                       
@@ -206,7 +216,7 @@ class FeedingView extends GetView<FeedingViewController> {
 return Obx(()=>
     RichText(
     text: TextSpan(
-      text: '${(controller.getTotalFeedingTime.abs().inMinutes)}',
+        text: '${(controller.getTotalFeedingTime.abs().inMinutes)}',
       style: Theme.of(Get.context!).textTheme.headline4?.copyWith(color: Colors.white),
       children:  <TextSpan>[
         TextSpan(text: " min", style: Theme.of(Get.context!).textTheme.headline6?.copyWith(fontWeight: FontWeight.bold,color: Colors.white)),
@@ -288,7 +298,7 @@ class RightBr extends GetView<FeedingViewController> {
               
                   Obx(()=> Text(
                     
-                 DurationServices.buildTime(   controller.rightBreastTimerDuration)??"",style:Theme.of(context).textTheme.headline4,),)
+                 DurationServices.buildTime(   controller.rightBreastTimerDuration2.value)??"",style:Theme.of(context).textTheme.headline4,),)
               ,
               
 PlayPauseButton()              
@@ -308,7 +318,7 @@ PlayPauseButton()
 onTap: (){
 
   controller.toggleRight();
-  controller.startIsolate();
+   controller.startIsolate();
 },
 
 
@@ -388,7 +398,7 @@ class LeftBr extends GetView<FeedingViewController> {
                     Text("Feeding now",style: Theme.of(context).textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold,letterSpacing: 0.8)),
               //show timer for left 
                     Obx(()=> Text(
-                      DurationServices.buildTime(  controller.leftBreastTimerDuration)??"",style: Theme.of(context).textTheme.headline4,
+                      DurationServices.buildTime(  controller.leftBreastTimerDuration2.value)??"",style: Theme.of(context).textTheme.headline4,
                       
                     )),
                     PlayPauseButton()
@@ -409,7 +419,8 @@ class LeftBr extends GetView<FeedingViewController> {
 onTap: ()async{
 controller.toggleLeft();
 
-controller.startIsolate();
+
+ controller.startIsolate();
 
 },
 

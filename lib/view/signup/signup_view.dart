@@ -1,12 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:baby_tracker/view/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../assets_path.dart';
 import '../../constants/text_constants.dart';
 import '../../textstyles.dart';
@@ -16,6 +20,8 @@ import 'signup_controller.dart';
 
 
 class SignupView extends GetView<SignupController> {
+
+
   const SignupView({Key? key}) : super(key: key);
 
   @override
@@ -28,6 +34,8 @@ class SignupView extends GetView<SignupController> {
               height: Get.height,
               child: Column(
                 children: [
+PickImageFrom(),
+               
                   ClipPath(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     clipper: CustomClipPath(),
@@ -171,3 +179,68 @@ class CustomClipPath extends CustomClipper<Path> {
     return true;
   }
 }
+   
+
+   class PickImageFrom extends StatefulWidget {
+
+     PickImageFrom({Key? key}) : super(key: key);
+   
+     @override
+     State<PickImageFrom> createState() => _PickImageFromState();
+   }
+   
+   class _PickImageFromState extends State<PickImageFrom> {
+     final ImagePicker _picker = ImagePicker();
+
+     @override
+     Widget build(BuildContext context) {
+       return Container(child: IconButton(icon: Icon(Icons.abc),onPressed: (){
+
+         pickTheImage();
+       },),);
+     }
+
+    // Pick an image
+
+    pickTheImage()async{
+
+
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+
+
+ final TextRecognizer recognizer= GoogleMlKit.vision.textRecognizer();
+
+ final inputImage=InputImage.fromFilePath(image!.path);
+  final RecognizedText recognizedText=await recognizer.processImage(inputImage);
+  print("tttttttttttttttttttttttttttttttttttttttttttt");
+  print(recognizedText.text);
+
+
+
+
+    }
+// scanImage()async{
+
+
+  
+
+//   try{
+//  final TextRecognizer recognizer= GoogleMlKit.vision.textRecognizer();
+
+//  final inputImage=InputImage.fromFilePath(_);
+//   final RecognizedText recognizedText=await recognizer.processImage(inputImage);
+// print("kkkkkkkkkkkkkkkkkkkkkkkkk");
+//   print(recognizedText);
+
+//   }
+
+//   catch(error){
+// print("eeeeeeeeeeeeeeeeeeeeeeeeeeee");
+//     print(error.toString());
+//   }
+
+
+// }
+
+   }

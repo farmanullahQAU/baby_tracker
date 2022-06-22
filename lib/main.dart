@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       home:
       
       
-      HomeView(),
+      SignupView(),
    themeMode: ThemeMode.system,
 
     //  darkTheme: ThemeData.dark(),
